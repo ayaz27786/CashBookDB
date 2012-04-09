@@ -90,8 +90,13 @@ public class CashBookActivity extends TabActivity implements
 		listView2 = (ListView) findViewById(R.id.list2);
 
 		// add views to tab host
+<<<<<<< HEAD
 		tabHost.addTab(tabHost.newTabSpec(LIST_TAB_CREDIT)
 				.setIndicator(LIST_TAB_CREDIT)
+=======
+		tabHost.addTab(tabHost.newTabSpec(LIST_TAB_DEBIT)
+				.setIndicator(LIST_TAB_DEBIT)
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 				.setContent(new TabContentFactory() {
 					public View createTabContent(String arg0) {
 
@@ -99,8 +104,13 @@ public class CashBookActivity extends TabActivity implements
 					}
 				}));
 
+<<<<<<< HEAD
 		tabHost.addTab(tabHost.newTabSpec(LIST_TAB_DEBIT)
 				.setIndicator(LIST_TAB_DEBIT)
+=======
+		tabHost.addTab(tabHost.newTabSpec(LIST_TAB_CREDIT)
+				.setIndicator(LIST_TAB_CREDIT)
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 				.setContent(new TabContentFactory() {
 					public View createTabContent(String arg0) {
 
@@ -115,6 +125,7 @@ public class CashBookActivity extends TabActivity implements
 	 * Implement logic here when a tab is selected
 	 */
 	public void onTabChanged(String tabName) {
+<<<<<<< HEAD
 		if (tabName.equals(LIST_TAB_CREDIT)) {
 			displayCreditData();
 
@@ -125,17 +136,51 @@ public class CashBookActivity extends TabActivity implements
 
 		}
 
+=======
+		if (tabName.equals(LIST_TAB_DEBIT)) {
+			displayDebitData();
+		}
+
+		else if (tabName.equals(LIST_TAB_CREDIT)) {
+			displayCreditData();
+		}
+	}
+
+	private void displayDebitData() {
+
+		ArrayList<String> filterList = new ArrayList<String>();
+		flage = 2;
+		entries = (ArrayList<Entry>) cashBookDataSource.getAllEntries();
+		int size = entries.size();
+		for (int i = 0; i < size; i++) {
+			if (!filterList.contains(entries.get(i).getDate())) {
+				filterList.add(entries.get(i).getDate());
+				// filterList.add(""+total);
+			}
+
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, filterList);
+		// entryDateAdapter = new EntryDateAdapter(this,
+		// R.layout.debit_credit_entry_row, entries);
+		listView2.setAdapter(adapter);
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 	}
 
 	private void displayCreditData() {
 		ArrayList<String> filterList = new ArrayList<String>();
+<<<<<<< HEAD
 		float a1;
 		float a2 = 0;
 		float a3;
+=======
+
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 		flage = 1;
 		entries = (ArrayList<Entry>) cashBookDataSource.getAllEntries();
 		int size = entries.size();
 		for (int i = 0; i < size; i++) {
+<<<<<<< HEAD
 
 			if (!filterList.contains(entries.get(i).getDate())) {
 				filterList.add(entries.get(i).getDate());
@@ -159,6 +204,16 @@ public class CashBookActivity extends TabActivity implements
 			}
 			filterList.add("" + a2);
 		}
+=======
+			if (!filterList.contains(entries.get(i).getDate())) {
+				filterList.add(entries.get(i).getDate());
+				// filterList.add(entries.get(i).getAmount());
+				// filterList.add(""+total1);
+			}
+
+		}
+
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, filterList);
 		// entryDateAdapter = new EntryDateAdapter(this,
@@ -166,6 +221,7 @@ public class CashBookActivity extends TabActivity implements
 		listView1.setAdapter(adapter);
 	}
 
+<<<<<<< HEAD
 	private void displayDebitData() {
 
 		// ArrayList<String> filterList = new ArrayList<String>();
@@ -186,6 +242,8 @@ public class CashBookActivity extends TabActivity implements
 		listView2.setAdapter(entryDateAdapter);
 	}
 
+=======
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
@@ -218,6 +276,7 @@ public class CashBookActivity extends TabActivity implements
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.action_home_bar, menu);
 		return super.onCreateOptionsMenu(menu);
+<<<<<<< HEAD
 	}
 
 	@Override
@@ -316,4 +375,104 @@ public class CashBookActivity extends TabActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
+=======
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.time_span:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Select Time Stamp").setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+						}
+					});
+			ListView modeList = new ListView(this);
+			String[] stringArray = new String[] { "All", "Current Month",
+					"Last 30 days", "Custom" };
+			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, android.R.id.text1,
+					stringArray);
+			modeList.setAdapter(modeAdapter);
+
+			builder.setView(modeList);
+			final Dialog dialog = builder.create();
+
+			dialog.show();
+			sp1 = modeList;
+			sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					flagg = 2;
+
+					freqSelected = (String) sp1.getSelectedItem();
+					Toast.makeText(getApplicationContext(), freqSelected,
+							Toast.LENGTH_SHORT).show();
+					Log.i("dsfasf", freqSelected);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+					Toast.makeText(getApplicationContext(),
+							"Please select some value", Toast.LENGTH_SHORT)
+							.show();
+				}
+			});
+
+			return true;
+
+		case R.id.date_tag_span:
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+			builder1.setTitle("Short By").setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+						}
+					});
+
+			ListView modeList1 = new ListView(this);
+			String[] stringArray1 = new String[] { "Date", "Tag" };
+			ArrayAdapter<String> modeAdapter1 = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, android.R.id.text1,
+					stringArray1);
+			modeList1.setAdapter(modeAdapter1);
+
+			builder1.setView(modeList1);
+			final Dialog dialog1 = builder1.create();
+
+			dialog1.show();
+			sp1 = modeList1;
+			sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					flagg = 2;
+
+					freqSelected = (String) sp1.getSelectedItem();
+					Toast.makeText(getApplicationContext(), freqSelected,
+							Toast.LENGTH_SHORT).show();
+					Log.i("dsfasf", freqSelected);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+					Toast.makeText(getApplicationContext(),
+							"Please select some value", Toast.LENGTH_SHORT)
+							.show();
+				}
+			});
+
+			return true;
+		case R.id.add_data:
+			Intent intent = new Intent(getApplicationContext(), AddEntry.class);
+			startActivity(intent);
+			return true;
+
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 }

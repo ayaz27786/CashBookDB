@@ -149,10 +149,17 @@ public class CashBookDataSource {
 	public List<Entry> getAllEntries() {
 		List<Entry> entries = new ArrayList<Entry>();
 		
+<<<<<<< HEAD
 		if (CashBookActivity.flage == 2) {
 			String a[] = { "Debit" };
 			b = a;
 		} else if(CashBookActivity.flage == 1){
+=======
+		if (CashBookActivity.flage == 1) {
+			String a[] = { "Debit" };
+			b = a;
+		} else if(CashBookActivity.flage == 2){
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
 			String a[] = { "Credit" };
 			b = a;
 		}

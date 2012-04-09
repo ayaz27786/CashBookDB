@@ -32,23 +32,36 @@
                     android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent"
                     android:layout_height="392dp" >
+<<<<<<< HEAD
                     
                       <ListView
+=======
+
+                    <ListView
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
                         android:id="@+id/list1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" >
                     </ListView>
+<<<<<<< HEAD
                     
                      <ListView
+=======
+
+                    <ListView
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
                         android:id="@+id/list2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
+<<<<<<< HEAD
 
                   
 
                    
+=======
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
