@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+    
+    
+    <item
+        android:id="@+id/date_tag_span"
+     
+          android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/tag_date"
+        android:showAsAction="always"/>
+    
+    <item
+        android:id="@+id/time_span"
+         android:icon="@android:drawable/ic_lock_idle_alarm"
+        android:title="@string/time_span"
+        android:showAsAction="always"/>         
+       
+      
+<item
+       
+        android:id="@+id/add_data"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/add_entry"
+        android:showAsAction="always"/>
+
+ <item
+        android:id="@+id/setting"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/setting"
+        android:showAsAction="always"/>       
+       
+</menu>

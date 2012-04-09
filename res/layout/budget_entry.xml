@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="6dip" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/row_tag"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tag_text"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/row_currency"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.8"
+            android:text="@string/currency"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/row_amount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/amount_text"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</LinearLayout>
