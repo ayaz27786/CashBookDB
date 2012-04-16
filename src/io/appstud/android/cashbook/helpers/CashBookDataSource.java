@@ -32,6 +32,8 @@ public class CashBookDataSource {
 	public void close() {
 		cashBookSQLiteOpenHelper.close();
 	}
+	
+	
 
 	private long createTag(String tag) {
 		ContentValues values = new ContentValues();
@@ -145,6 +147,7 @@ public class CashBookDataSource {
 		values.put(CashBookSQLiteOpenHelper.COL_DATE, entry.getDate());
 		values.put(CashBookSQLiteOpenHelper.COL_DESC, entry.getDesciption());
 		values.put(CashBookSQLiteOpenHelper.COL_FLAG, entry.getFlag());
+		
 
 		if (entry.getTags() != null) {
 			long entryId = database.insert(
@@ -165,6 +168,7 @@ public class CashBookDataSource {
 
 	public List<Entry> getAllEntries() {
 		List<Entry> entries = new ArrayList<Entry>();
+<<<<<<< HEAD
 
 		if (CashBookActivity.flag == 2) {
 			String a[] = { "Debit" };
@@ -210,6 +214,26 @@ public class CashBookDataSource {
 				+ CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES + "where"
 				+ CashBookSQLiteOpenHelper.COL_FLAG + "=" + b);
 		cursor = database.rawQuery(sql, null);
+=======
+		
+<<<<<<< HEAD
+		if (CashBookActivity.flage == 2) {
+			String a[] = { "Debit" };
+			b = a;
+		} else if(CashBookActivity.flage == 1){
+=======
+		if (CashBookActivity.flage == 1) {
+			String a[] = { "Debit" };
+			b = a;
+		} else if(CashBookActivity.flage == 2){
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
+			String a[] = { "Credit" };
+			b = a;
+		}
+		Cursor cursor = database.query(
+				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES, null, CashBookSQLiteOpenHelper.COL_FLAG + " = ? ", b,
+				null, null, null);
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Entry entry = cursorToEntry(cursor);
@@ -250,6 +274,66 @@ public class CashBookDataSource {
 		}
 		return entries;
 	}
+	
+	public List<Entry> getEntriesByDate(Date startDate, Date lastDate){
+		List<Entry> entries = new ArrayList<Entry>();
+		Date currentDate = new Date(System.currentTimeMillis());
+
+		 lastDate=new Date(112,02,03);
+	
+		Log.d(TAG,
+				"Current Date : " + lastDate);
+		Log.d(TAG,
+				"Last Date : " + lastDate);
+		Cursor cursor = database.query(
+				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES,null,
+				CashBookSQLiteOpenHelper.COL_DATE + " > ? ",
+				 new String[] { String.valueOf(lastDate) }, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Entry entry = cursorToEntry(cursor);
+			Log.d(TAG,
+					"Date_Entry Found : " + entry.getId() + " - "
+							+ entry.getAmount());
+			List<Tag> tags = new ArrayList<Tag>();
+			entry.setTags(tags);
+			entries.add(entry);
+			cursor.moveToNext();
+		}
+		return entries;
+	}
+	
+//	public List<Entry> getLast30daysEntries(){
+//		List<Entry> entries = new ArrayList<Entry>();
+//		Date currentDate = new Date(System.currentTimeMillis());
+//		String date=  currentDate.toString();
+//		
+//		Date lastDate=new Date(112,02,03);
+//		String s1=lastDate.toString();
+//		Date ld= new Date(00,00,30);
+//		String s2=ld.toString();
+//	
+//		Log.d(TAG,
+//				"Current Date : " + date);
+//		Log.d(TAG,
+//				"Last Date : " + lastDate);
+//		Cursor cursor = database.query(
+//				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES,null,
+//				CashBookSQLiteOpenHelper.COL_DATE + " > ? ",
+//				 new String[] { String.valueOf(lastDate) }, null, null, null);
+//		cursor.moveToFirst();
+//		while (!cursor.isAfterLast()) {
+//			Entry entry = cursorToEntry(cursor);
+//			Log.d(TAG,
+//					"Date_Entry Found : " + entry.getId() + " - "
+//							+ entry.getAmount());
+//			List<Tag> tags = new ArrayList<Tag>();
+//			entry.setTags(tags);
+//			entries.add(entry);
+//			cursor.moveToNext();
+//		}
+//		return entries;
+//	}
 
 	// public List<Entry> getLast30daysEntries(){
 	// List<Entry> entries = new ArrayList<Entry>();

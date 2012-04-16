@@ -96,7 +96,15 @@ public class AddEntry extends Activity {
         
         if (flagSwitch.isChecked())
 	         flag = "Debit";
+<<<<<<< HEAD
         if(flagSwitch.equals("Credit")){
+=======
+<<<<<<< HEAD
+        if(flagSwitch.equals("Credit")){
+=======
+        if(flagSwitch.equals("Debit")){
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
             if (etDesc.getText().toString().length() == 0 || etAmt.getText().toString().length() ==0) {
 		      etDesc.setError(this.getString(R.string.description_required));
 		         etAmt.setError(this.getString(R.string.amount_required));
@@ -114,7 +122,19 @@ public class AddEntry extends Activity {
 		entry.setAmount(etAmt.getText().toString());
 		entry.setDate(date);
 		entry.setDesciption(etDesc.getText().toString());
+<<<<<<< HEAD
 		entry.setFlag(flag);
+=======
+<<<<<<< HEAD
+		entry.setFlag(flag);
+=======
+		
+		
+		//entry.setFlag("Credit");
+		entry.setFlag("Debit");
+		entry.setFlag(entry.getFlag());
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 		entry.setTags(tags);
 		entriesDataSource.createEntry(entry);
 	}
@@ -139,6 +159,17 @@ public class AddEntry extends Activity {
         		entry.setAmount(etAmt.getText().toString());
         		entry.setDate(date);
         		entry.setDesciption(etDesc.getText().toString());
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        	
+        		
+        		
+        		//entry.setFlag("Debit");
+        		entry.setFlag("Credit");
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
         		entry.setFlag(flag);
         		entry.setTags(tags);
         		entriesDataSource.createEntry(entry);
@@ -161,8 +192,21 @@ public class AddEntry extends Activity {
 	}
 
 	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+//	protected void onPause() {
+//		entriesDataSource.close();
+//		super.onPause();
+//	}
+=======
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 	protected void onPause() {
 		entriesDataSource.close();
 		super.onPause();
 	}
+<<<<<<< HEAD
+=======
+>>>>>>> afa7e6e78940714137dcbda9794c92d329086c07
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 }

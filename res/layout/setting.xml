@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+<<<<<<< HEAD
     android:background="@drawable/setting"
     android:orientation="vertical" >
 
@@ -45,5 +46,56 @@
             android:layout_weight="1"
             android:hint="tag edit" />
     </LinearLayout>
+=======
+    android:orientation="vertical"
+    android:background="@drawable/setting" >
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    
+
+    <TextView
+        android:id="@+id/currencytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Currency"
+        android:layout_weight="0" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    
+    </LinearLayout>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    
+        
+         <TextView
+        android:id="@+id/tagtext"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/tag"
+        android:layout_weight="1" />
+         
+         
+         <EditText 
+             android:id="@+id/tagedit"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:hint="tag edit"
+             />
+        
+        </LinearLayout>
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 
 </LinearLayout>

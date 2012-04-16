@@ -45,6 +45,9 @@
     <string name="Currency">Currency</string>
     <string name="tag">Tag</string>
     <string name="Button">Ok</string>
+<<<<<<< HEAD
     <string name="showdescription">show description</string>
+=======
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
 
 </resources>

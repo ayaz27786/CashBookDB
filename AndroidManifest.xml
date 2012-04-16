@@ -20,10 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity   android:name=".activities.AddEntry"/>
              
              <activity   android:name=".activities.DetailByTag" />
        
+=======
+        <activity   android:name=".activities.AddEntry">
+            
+        </activity>
+>>>>>>> 21facc0e4066b49870c762d305848768827050e4
     </application>
 
 </manifest>
