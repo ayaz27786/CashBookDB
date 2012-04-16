@@ -1,5 +1,8 @@
 package io.appstud.android.cashbook.helpers;
 
+import io.appstud.android.cashbook.activities.CashBookActivity;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,7 @@ import android.util.Log;
 public class CashBookDataSource {
 
 	private static final String TAG = "CashBookDataSource";
-
+	public static String b[];
 	private SQLiteDatabase database;
 	private CashBookSQLiteOpenHelper cashBookSQLiteOpenHelper;
 
@@ -97,7 +100,7 @@ public class CashBookDataSource {
 		return tag;
 	}
 
-	private List<Tag> findTagsByEntryId(long entryId) {
+	public List<Tag> getTagsByEntryId(long entryId) {
 		List<Tag> tags = new ArrayList<Tag>();
 		Cursor cursor = database.query(
 				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRY_HAS_TAG, null,
@@ -116,6 +119,26 @@ public class CashBookDataSource {
 		return tags;
 	}
 
+	public List<Tag> getTagsByEntryDate(Date entrydate) {
+		List<Tag> tags = new ArrayList<Tag>();
+		Cursor cursor = database.query(
+				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRY_HAS_TAG, null,
+				CashBookSQLiteOpenHelper.COL_DATE + " = " + "?",
+				new String[] { String.valueOf(entrydate) }, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			long tagId = cursor.getLong(2);
+			String tag = findTagByTagId(tagId);
+			Tag t = new Tag();
+			t.setId(tagId);
+			t.setTag(tag);
+			tags.add(t);
+			cursor.moveToNext();
+		}
+		return tags;
+	}
+
+	
 	public long createEntry(Entry entry) {
 		ContentValues values = new ContentValues();
 		values.put(CashBookSQLiteOpenHelper.COL_AMT, entry.getAmount());
@@ -142,9 +165,19 @@ public class CashBookDataSource {
 
 	public List<Entry> getAllEntries() {
 		List<Entry> entries = new ArrayList<Entry>();
+
+		if (CashBookActivity.flag == 2) {
+			String a[] = { "Debit" };
+			b = a;
+		} else if (CashBookActivity.flag == 1) {
+			String a[] = { "Credit" };
+			b = a;
+		}
+
 		Cursor cursor = database.query(
-				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES, null, null, null,
-				null, null, null);
+				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES, null,
+				CashBookSQLiteOpenHelper.COL_FLAG + " = ? ", b, null, null,
+				null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Entry entry = cursorToEntry(cursor);
@@ -152,13 +185,103 @@ public class CashBookDataSource {
 					"Entry Found : " + entry.getId() + " - "
 							+ entry.getAmount());
 			List<Tag> tags = new ArrayList<Tag>();
-			tags = findTagsByEntryId(entry.getId());
+			tags = getTagsByEntryId(entry.getId());
 			entry.setTags(tags);
 			entries.add(entry);
 			cursor.moveToNext();
 		}
 		return entries;
 	}
+
+	public List<Entry> getAllDistinctDate() {
+		List<Entry> entries = new ArrayList<Entry>();
+		if (CashBookActivity.flag == 2) {
+			String a[] = { "Debit" };
+			b = a;
+		} else if (CashBookActivity.flag == 1) {
+			String a[] = { "Credit" };
+			b = a;
+		}
+
+		Cursor cursor;
+		String sql = ("select" + CashBookSQLiteOpenHelper.COL_AMT + ","
+
+		+ "distinct" + CashBookSQLiteOpenHelper.COL_DATE + "from"
+				+ CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES + "where"
+				+ CashBookSQLiteOpenHelper.COL_FLAG + "=" + b);
+		cursor = database.rawQuery(sql, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Entry entry = cursorToEntry(cursor);
+			Log.d(TAG,
+					"Entry Found : " + entry.getId() + " - "
+							+ entry.getAmount());
+			List<Tag> tags = new ArrayList<Tag>();
+			tags = getTagsByEntryId(entry.getId());
+			entry.setTags(tags);
+			entries.add(entry);
+			cursor.moveToNext();
+		}
+		return entries;
+	}
+
+	public List<Entry> getEntriesByDate(Date startDate, Date lastDate) {
+		List<Entry> entries = new ArrayList<Entry>();
+		Date currentDate = new Date(System.currentTimeMillis());
+
+		lastDate = new Date(112, 02, 03);
+
+		Log.d(TAG, "Current Date : " + lastDate);
+		Log.d(TAG, "Last Date : " + lastDate);
+		Cursor cursor = database.query(
+				CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES, null,
+				CashBookSQLiteOpenHelper.COL_DATE + " > ? ",
+				new String[] { String.valueOf(lastDate) }, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Entry entry = cursorToEntry(cursor);
+			Log.d(TAG,
+					"Date_Entry Found : " + entry.getId() + " - "
+							+ entry.getAmount());
+			List<Tag> tags = new ArrayList<Tag>();
+			entry.setTags(tags);
+			entries.add(entry);
+			cursor.moveToNext();
+		}
+		return entries;
+	}
+
+	// public List<Entry> getLast30daysEntries(){
+	// List<Entry> entries = new ArrayList<Entry>();
+	// Date currentDate = new Date(System.currentTimeMillis());
+	// String date= currentDate.toString();
+	//
+	// Date lastDate=new Date(112,02,03);
+	// String s1=lastDate.toString();
+	// Date ld= new Date(00,00,30);
+	// String s2=ld.toString();
+	//
+	// Log.d(TAG,
+	// "Current Date : " + date);
+	// Log.d(TAG,
+	// "Last Date : " + lastDate);
+	// Cursor cursor = database.query(
+	// CashBookSQLiteOpenHelper.TABLE_NAME_ENTRIES,null,
+	// CashBookSQLiteOpenHelper.COL_DATE + " > ? ",
+	// new String[] { String.valueOf(lastDate) }, null, null, null);
+	// cursor.moveToFirst();
+	// while (!cursor.isAfterLast()) {
+	// Entry entry = cursorToEntry(cursor);
+	// Log.d(TAG,
+	// "Date_Entry Found : " + entry.getId() + " - "
+	// + entry.getAmount());
+	// List<Tag> tags = new ArrayList<Tag>();
+	// entry.setTags(tags);
+	// entries.add(entry);
+	// cursor.moveToNext();
+	// }
+	// return entries;
+	// }
 
 	public Entry getEntryById(long entryId) {
 
@@ -169,7 +292,7 @@ public class CashBookDataSource {
 		cursor.moveToFirst();
 		Entry entry = cursorToEntry(cursor);
 		List<Tag> tags = new ArrayList<Tag>();
-		tags = findTagsByEntryId(entryId);
+		tags = getTagsByEntryId(entryId);
 		entry.setTags(tags);
 		return entry;
 	}
